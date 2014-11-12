@@ -8,17 +8,20 @@ import edu.uci.ics.crawler4j.robotstxt.{RobotstxtConfig, RobotstxtServer}
 object Controller extends App {
   val crawlStorageFolder = "/tmp/crawl"
   val numberOfCrawlers = 1
-  val proxyHost = args(0)
-  val proxyPort = args(1).toInt
 
   val config = new CrawlConfig()
   config.setCrawlStorageFolder(crawlStorageFolder)
   config.setPolitenessDelay(1000)
   config.setMaxDepthOfCrawling(2)
   config.setMaxPagesToFetch(1000)
-  config.setProxyHost(proxyHost)
-  config.setProxyPort(proxyPort)
   config.setResumableCrawling(false)
+
+  if(args.length > 0) {
+    val proxyHost = args(0)
+    val proxyPort = args(1).toInt
+    config.setProxyHost(proxyHost)
+    config.setProxyPort(proxyPort)
+  }
 
   val pageFetcher = new PageFetcher(config)
   val robotstxtConfig = new RobotstxtConfig()
