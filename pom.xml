@@ -22,6 +22,14 @@
 				<groupId>net.alchim31.maven</groupId>
 				<artifactId>scala-maven-plugin</artifactId>
 				<version>3.2.0</version>
+                <configuration>
+                    <launchers>
+                        <launcher>
+                            <id>console</id>
+                            <mainClass>com.stacktoheap.crawler.Controller</mainClass>
+                        </launcher>
+                    </launchers>
+                </configuration>
 				<executions>
 					<execution>
 						<!-- this is so we don't end with a compile error in maven-compiler-plugin -->					
@@ -70,5 +78,12 @@
 			<version>2.2.0</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>edu.uci.ics</groupId>
+            <artifactId>crawler4j</artifactId>
+            <version>3.5</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
 </project>
