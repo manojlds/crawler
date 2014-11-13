@@ -9,18 +9,6 @@ import edu.uci.ics.crawler4j.parser.HtmlParseData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-
-object Utils {
-  def Managed[R](block: => R): Option[R] = {
-    try {
-      Option(block)
-    } catch {
-      case e: Exception => {println(e); None}
-    }
-  }
-
-}
-
 abstract class Parser {
   val resultsFileName: String
   lazy val writer = initializeResultsFile
@@ -34,7 +22,7 @@ abstract class Parser {
     new PrintWriter(file)
   }
 
-  def parseDocument(document: Document, url: String): Product
+  def parseDocument(document: Document, url: String): Option[Product]
 
   def parse(page: Page): Unit = {
     val pageHtml = page.getParseData match {
@@ -43,7 +31,9 @@ abstract class Parser {
     val document = Jsoup.parse(pageHtml)
 
     val product = parseDocument(document, page.getWebURL.getURL)
-    writeToCsv(product)
+    if(!product.isDefined) return
+
+    writeToCsv(product.get)
   }
 
   def writeToCsv(product: Product) {

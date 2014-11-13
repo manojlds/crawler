@@ -1,6 +1,6 @@
 package com.stacktoheap.crawler
 
-import com.stacktoheap.crawler.crawler.FlipkartCrawler
+import com.stacktoheap.crawler.crawler.{JabongCrawler, FlipkartCrawler}
 import edu.uci.ics.crawler4j.crawler.{CrawlController, CrawlConfig}
 import edu.uci.ics.crawler4j.fetcher.PageFetcher
 import edu.uci.ics.crawler4j.robotstxt.{RobotstxtConfig, RobotstxtServer}
@@ -29,7 +29,8 @@ object Controller extends App {
   val robotstxtServer = new RobotstxtServer(robotstxtConfig, pageFetcher)
   val controller = new CrawlController(config, pageFetcher, robotstxtServer)
 
-  controller.addSeed("http://www.flipkart.com")
+  controller.addSeed("http://www.jabong.com")
 
-  controller.start(classOf[FlipkartCrawler], numberOfCrawlers)
+//  controller.start(classOf[FlipkartCrawler], numberOfCrawlers)
+  controller.start(classOf[JabongCrawler], numberOfCrawlers)
 }
