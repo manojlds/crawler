@@ -2,15 +2,37 @@ package com.stacktoheap.crawler.parser
 
 import java.io.{File, PrintWriter}
 
+import com.stacktoheap.crawler.Controller
 import com.stacktoheap.crawler.model.Product
 import edu.uci.ics.crawler4j.crawler.Page
 import edu.uci.ics.crawler4j.parser.HtmlParseData
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
+
+object Utils {
+  def Managed[R](block: => R): Option[R] = {
+    try {
+      Option(block)
+    } catch {
+      case e: Exception => {println(e); None}
+    }
+  }
+
+}
+
 abstract class Parser {
   val resultsFileName: String
-  lazy val writer = new PrintWriter(new File(s"/tmp/crawl/results/$resultsFileName.csv"))
+  lazy val writer = initializeResultsFile
+
+  def initializeResultsFile: PrintWriter = {
+    val resultsDirectory = Controller.crawlStorageFolder
+    val file = new File(s"$resultsDirectory/$resultsFileName.csv")
+    if(file.exists()) file.delete()
+    file.createNewFile()
+
+    new PrintWriter(file)
+  }
 
   def parseDocument(document: Document, url: String): Product
 
@@ -34,23 +56,4 @@ abstract class Parser {
   }
 }
 
-class FlipkartParser extends Parser {
-  override val resultsFileName = "flipkart-results"
 
-  def getDescription(document: Document): String = {
-    var description = document.select("div.rpdSection > p.description").text()
-    if(description.isEmpty)
-      description = document.select("div.description .description-text p:first-child").text()
-    description
-  }
-
-  override def parseDocument(document: Document, url: String): Product = {
-    val name = document.select("h1[itemprop=name]").text()
-
-    val description: String = getDescription(document)
-    val sellingPrice = document.select("div.product-details span.selling-price").attr("data-evar48").toDouble
-    val listPrice = document.select("div.product-details span.price.list").text().replace("Rs. ", "").replace(",", "").toDouble
-
-    Product(name, description, url, listPrice, sellingPrice)
-  }
-}

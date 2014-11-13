@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mvn scala:run "-DaddArgs=$*"
+mvn scala:compile scala:run "-DaddArgs=$*"
