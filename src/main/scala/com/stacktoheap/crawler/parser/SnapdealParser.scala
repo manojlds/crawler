@@ -10,7 +10,7 @@ class SnapdealParser extends Parser {
 
   override def parseDocument(document: Document, url: String): Option[Product] = {
     val name = Managed(document.select("h1[itemprop=name]").text()).getOrElse("")
-    val description = Managed(document.select(".detailssubbox div[itemprop=description] > p:nth-child(2)").text()).getOrElse("")
+    val description = Managed(document.select(".detailssubbox div[itemprop=description]").text().split('.')(0)).getOrElse("")
     val sellingPrice = Managed(document.select("#selling-price-id").text().toDouble).getOrElse(0.0)
     val listPrice = Managed(document.select("#seller-price-id").text().replace("Rs ", "").replace(",", "").toDouble).getOrElse(sellingPrice)
     val product = Product(name, description, url, listPrice, sellingPrice)
