@@ -30,10 +30,7 @@ abstract class Parser {
     }
     val document = Jsoup.parse(pageHtml)
 
-    val product = parseDocument(document, page.getWebURL.getURL)
-    if(!product.isDefined) return
-
-    writeToCsv(product.get)
+    parseDocument(document, page.getWebURL.getURL) map writeToCsv
   }
 
   def writeToCsv(product: Product) {
