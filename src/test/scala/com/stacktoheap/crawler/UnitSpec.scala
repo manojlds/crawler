@@ -1,7 +1,5 @@
 package com.stacktoheap.crawler
 
-import org.scalamock.proxy.ProxyMockFactory
-import org.scalamock.scalatest.MockFactory
 import org.scalatest._
 import org.jsoup.Jsoup
 import org.scalatest.mock.MockitoSugar
