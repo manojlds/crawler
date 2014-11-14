@@ -51,14 +51,6 @@ class BaseCrawlerSpecs extends UnitSpec {
     }
 
     describe("visit") {
-      def mockPage(url: String): Page = {
-        val webUrl: WebURL = new WebURL()
-        webUrl.setURL(url)
-        val page = mock[Page]
-        when(page.getWebURL).thenReturn(webUrl)
-        page
-      }
-
       it("should not parse url") {
         val page: Page = mockPage("http://www.stacktoheap.com/page1")
 
