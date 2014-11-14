@@ -13,3 +13,4 @@ class FlipkartCrawler extends BaseCrawler {
     super.shouldVisit(url) && shouldParse(url.getURL)
   }
 }
+

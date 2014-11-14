@@ -11,7 +11,7 @@ class JabongParserSpecs extends UnitSpec {
        product.name should be ("Grey Sneakers")
        product.description should be ("Create a trend that captures the essence of the season as you adorn this pair of sneakers by United Colors of Benetton. Crafted using rubber, the sole will keep your feet at comfort all day long. These lightweight shoes will look good when worn with a pair of jeans and a T-shirt.")
        product.url should be (url)
-       product.salePrice should be (2099.0)
+       product.sellingPrice should be (2099.0)
        product.listPrice should be (2099.0)
      }
    }
