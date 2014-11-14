@@ -1,10 +1,11 @@
 crawler
 =======
 
-Trying our crawler4j
+Trying out crawler4j
 
-Run by doing:
+Run as follows::
 
 ```sh
-./run.sh ["proxy.host|port"]
+./run.sh
+./run.sh "proxy.host.com|3000"
 ```
