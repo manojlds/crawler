@@ -1,6 +1,6 @@
 package com.stacktoheap.crawler.parser
 
-import java.io.{File, PrintWriter}
+import java.io.{Writer, File, PrintWriter}
 
 import com.stacktoheap.crawler.Controller
 import com.stacktoheap.crawler.model.Product
@@ -11,7 +11,7 @@ import org.jsoup.nodes.Document
 
 abstract class Parser {
   val resultsFileName: String
-  lazy val writer = initializeResultsFile
+  lazy val writer: Writer = initializeResultsFile
 
   def initializeResultsFile: PrintWriter = {
     val resultsDirectory = Controller.crawlStorageFolder
@@ -24,7 +24,7 @@ abstract class Parser {
 
   def parseDocument(document: Document, url: String): Option[Product]
 
-  def parse(page: Page): Unit = {
+  def parse(page: Page) {
     val pageHtml = page.getParseData match {
       case data: HtmlParseData => data.getHtml
     }
@@ -38,7 +38,7 @@ abstract class Parser {
     writer.append("\n")
   }
 
-  def dispose(): Unit = {
+  def dispose() {
     writer.close()
   }
 }
