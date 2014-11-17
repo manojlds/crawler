@@ -1,9 +1,10 @@
-lazy val root = (project in file(".")).
-  settings(
-    name := "crawler",
-    version := "1.0",
-    scalaVersion := "2.10.4"
-  )
+name := "crawler"
+
+version := "1.0"
+
+scalaVersion := "2.10.4"
+
+scalacOptions ++= Seq("-g:vars", "-Yrangepos")
 
 libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-lang3" % "3.3.2",
@@ -14,3 +15,5 @@ libraryDependencies ++= Seq(
   "org.scoverage" % "scalac-scoverage-plugin_2.10" % "0.98.2" % Test,
   "org.mockito" % "mockito-all" % "1.9.0" % Test
 )
+
+instrumentSettings
